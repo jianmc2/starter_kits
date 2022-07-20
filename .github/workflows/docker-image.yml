@@ -21,6 +21,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get -y install sshpass
+        sudo apt install openssh-server
         docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' tigergraph
     - name: SSH Remote Commands
       run: |

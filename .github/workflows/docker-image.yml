@@ -23,7 +23,7 @@ jobs:
         sudo apt-get -y install sshpass
         docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' tigergraph
     - name: SSH Remote Commands
-      run: sshpass -p tigergraph ssh tigergraph@localhost
+      run: sshpass -p tigergraph ssh tigergraph@172.17.0.2
    
           
     # t

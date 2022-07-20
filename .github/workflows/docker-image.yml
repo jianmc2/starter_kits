@@ -19,6 +19,12 @@ jobs:
       run: docker run -d -p 14022:22 -p 9000:9000 -p 14240:14240 --name tigergraph --ulimit nofile=1000000:1000000 -v ~/data:/home/tigergraph/mydata -t docker.tigergraph.com/tigergraph:latest
     - name: SSH into Image
       run: docker inspect tigergraph
-    - name: idk
-      run: ssh -p 14022 tigergraph@172.17.0.2
+    - name: SSH Remote Commands
+      uses: appleboy/ssh-action@v0.1.4
+      with:
+        host: localhost
+        username: tigergraph
+        password: tigergraph
+        port: 22
+        script: ls -a
 # t

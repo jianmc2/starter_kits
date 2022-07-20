@@ -23,7 +23,7 @@ jobs:
         host: localhost
         username: tigergraph
         password: tigergraph
-        port: 22
+        port: 14022
         script: |
           ls data
           

@@ -20,7 +20,7 @@ jobs:
     - name: SSH Remote Commands
       uses: appleboy/ssh-action@v0.1.4
       with:
-        host: 172.17.0.2
+        host: localhost
         username: tigergraph
         password: tigergraph
         port: 22

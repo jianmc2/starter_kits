@@ -27,7 +27,6 @@ jobs:
         password: tigergraph
         port: 22
         script: |
-          gadmin start all
-          gsql 
+          ls
           
     # t

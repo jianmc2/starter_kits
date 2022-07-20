@@ -18,7 +18,7 @@ jobs:
 #     - name: Build the Docker image
 #       run: docker run -d -p 14022:22 -p 9000:9000 -p 14240:14240 --name tigergraph --ulimit nofile=1000000:1000000 -v ~/data:/home/tigergraph/mydata -t docker.tigergraph.com/tigergraph:latest
     - name: Test Files
-      run: ls /github/workspace/
+      run: ls ./
     - name: SSH Remote Commands
       uses: appleboy/ssh-action@v0.1.4
       with:

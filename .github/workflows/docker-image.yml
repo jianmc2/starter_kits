@@ -18,13 +18,10 @@ jobs:
     - name: Build the Docker image
       run: docker run -d -p 14022:22 -p 9000:9000 -p 14240:14240 --name tigergraph --ulimit nofile=1000000:1000000 -v -t docker.tigergraph.com/tigergraph:latest
     - name: SSH Remote Commands
-      uses: appleboy/ssh-action@v0.1.4
-      with:
-        host: tigergraph@localhost
-        username: tigergraph
-        password: tigergraph
-        port: 14202
-        script: |
-          ls data
+      run: |
+        docker exec -it $(docker ps | grep tigergraph | awk '{print $1}') /bin/sh
+        cd home/tigergraph/
+        ls
+   
           
     # t

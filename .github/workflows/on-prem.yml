@@ -22,7 +22,7 @@ jobs:
       run: |
         pwd
         cd tigergraph-3.6.1-offline
-        jq '.BasicConfig[NodeList][m1]=`hostname -I`' tigergraph-3.6.1-offline/install_conf.json
+        jq '.BasicConfig.NodeList.m1=`hostname -I`' tigergraph-3.6.1-offline/install_conf.json
         cat tigergraph-3.6.1-offline/install_conf.json
     # - name: Install TigerGraph
     #   run: |

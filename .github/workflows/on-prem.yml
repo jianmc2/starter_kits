@@ -17,7 +17,7 @@ jobs:
       run: |
         wget -O tigergraph-3.6.1-offline.tar.gz "https://drive.google.com/uc?export=download&id=1xNhtDgc_jkZUEDzdc5_nI9cuTi9h2odU&confirm=yes"
     - name: Extract tar
-      run: tar -xzf tigergraph-3.6.1.tar.gz
+      run: tar -xzf tigergraph-3.6.1-offline.tar.gz
     - name: CD into extracted file
       run: cd tigergraph-3.6.1-offline
     - name: Install TigerGraph

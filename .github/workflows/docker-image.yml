@@ -1,10 +1,10 @@
 name: Docker Image CI
 
 on:
-  push:
-    branches: [ "3.7" ]
-  pull_request:
-    branches: [ "3.7" ]
+  # push:
+  #   branches: [ "3.7" ]
+  # pull_request:
+  #   branches: [ "3.7" ]
 
 jobs:
 
@@ -13,19 +13,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: checkout
-      uses: "actions/checkout@v3"
-    - name: Build the Docker image
-      run: docker run -d -p 14022:22 -p 9000:9000 -p 14240:14240 --name tigergraph --ulimit nofile=1000000:1000000 -v -t docker.tigergraph.com/tigergraph:latest
     - name: Install SSHPASS
-      run: |
-        sudo apt-get update
-        sudo apt-get -y install sshpass
-        sudo apt install openssh-server
-        docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' tigergraph
+      run: sudo apt install sshpass
+    - name: Build the Docker image
+      run: docker run -d -p 14022:22 -p 9000:9000 -p 14240:14240 --name tigergraph --ulimit nofile=1000000:1000000 -v ~/data:/home/tigergraph/mydata -t docker.tigergraph.com/tigergraph:latest
+    - name: SSH into Image
+      run: docker inspect tigergraph
     - name: SSH Remote Commands
-      run: |
-        sshpass -p tigergraph ssh -p 14022 -tt tigergraph@localhost
-   
-          
-    # t
+      uses: appleboy/ssh-action@v0.1.4
+      with:
+        host: 172.17.0.2
+        username: tigergraph
+        password: tigergraph
+        port: 22
+        script: ls -a
+# t

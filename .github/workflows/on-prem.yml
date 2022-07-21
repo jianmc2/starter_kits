@@ -22,7 +22,8 @@ jobs:
       run: cd tigergraph-3.6.1-offline
     - name: Install TigerGraph
       run: |
-        ls
+        ls 
+        ls tigergraph-3.6.1-offline
         pwd
     # - name: Start Graph
     #   run: gadmin config

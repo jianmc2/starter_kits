@@ -22,10 +22,12 @@ jobs:
       run: |
         pwd
         cd tigergraph-3.6.1-offline
-    - name: Install TigerGraph
-      run: |
-        pwd
-        hostname -I | awk '{print $1}'
+        jq '.BasicConfig[NodeList][m1]=$(hostname -I)' tigergraph-3.6.1-offline/install_conf.json
+        cat tigergraph-3.6.1-offline/install_conf.json
+    # - name: Install TigerGraph
+    #   run: |
+    #     pwd
+    #     sudo tigergraph-3.6.1-offline/install.sh -n
     # - name: Start Graph
     #   run: gadmin config
 # t

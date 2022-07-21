@@ -15,7 +15,7 @@ jobs:
     steps:
     - name: Check Ubuntu version
       run: |
-        wget "https://drive.google.com/uc?export=download&id=1OdBA9MTCYPwJGwvMt3f2qiDmz9oxoqi4&confirm=yes"
+        wget -O listings.csv "https://drive.google.com/uc?export=download&id=1OdBA9MTCYPwJGwvMt3f2qiDmz9oxoqi4&confirm=yes"
     - name: Check Files
       run: ls
 

@@ -26,6 +26,6 @@ jobs:
       run: |
         pwd
         sudo tigergraph-3.6.1-offline/install.sh -n
-    # - name: Start Graph
-    #   run: gadmin config
+    - name: Start Graph
+      run: gadmin config
 # t

@@ -21,7 +21,7 @@ jobs:
     - name: CD into extracted file
       run: cd tigergraph-3.6.1-offline
     - name: Install TigerGraph
-      run: sudo ./install.sh -n
-    - name: Start Graph
-      run: gadmin config
+      run: ls
+    # - name: Start Graph
+    #   run: gadmin config
 # t

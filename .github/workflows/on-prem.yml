@@ -19,9 +19,11 @@ jobs:
     - name: Extract tar
       run: tar -xzf tigergraph-3.6.1-offline.tar.gz
     - name: CD into extracted file
-      run: cd ./tigergraph-3.6.1-offline
+      run: cd ~/tigergraph-3.6.1-offline
     - name: Install TigerGraph
-      run: ls
+      run: |
+        ls
+        pwd
     # - name: Start Graph
     #   run: gadmin config
 # t

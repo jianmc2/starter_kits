@@ -16,7 +16,9 @@ jobs:
     - name: Check Ubuntu version
       run: |
         wget -O tigergraph-3.6.1-offline.tar.gz "https://drive.google.com/uc?export=download&id=1xNhtDgc_jkZUEDzdc5_nI9cuTi9h2odU&confirm=yes"
-    - name: Check Files
+    - name: Extract tar
+      run: tar -xzf tigergraph-3.6.1-offline.tar.gz
+    - name: Show Files
       run: ls
 
 # t

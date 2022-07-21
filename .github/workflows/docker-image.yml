@@ -25,7 +25,7 @@ jobs:
         docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' tigergraph
     - name: SSH Remote Commands
       run: |
-        sshpass -p tigergraph ssh -tt tigergraph@172.17.0.2
+        sshpass -p tigergraph ssh -tt tigergraph@localhost
    
           
     # t

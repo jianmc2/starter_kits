@@ -31,5 +31,5 @@ jobs:
         host: localhost
         user: tigergraph
         pass: tigergraph
-        args: -tt 
+        args: "-tt"
 # t

@@ -16,23 +16,19 @@ jobs:
     - uses: actions/checkout@v3
     - name: Set up ssh keys
       run: |
-        ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa
-        ls ~/.ssh
-    - name: Set up ssh keys
-      run: ls ~/.ssh
-        
-    # - name: Build the Docker image
-    #   run: docker run -d -p 14022:22 -p 9000:9000 -p 14240:14240 --name tigergraph --ulimit nofile=1000000:1000000 -v ~/.ssh:/home/tigergraph/.ssh -t docker.tigergraph.com/tigergraph:latest
-    # # - name: SSH into Image
-    # #   run: |
-    # #     docker inspect tigergraph
-    # #     ssh -p 14022 tigergraph@localhost
-    # #     ls
-    # - name: SSH Remote Commands
-    #   uses: appleboy/ssh-action@v0.1.4
-    #   with:
-    #     host: localhost
-    #     key: ~/.ssh/id_rsa
-    #     port: 22
-    #     script: ls -a
+        ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa 
+    - name: Build the Docker image
+      run: docker run -d -p 14022:22 -p 9000:9000 -p 14240:14240 --name tigergraph --ulimit nofile=1000000:1000000 -v ~/.ssh:/home/tigergraph/.ssh -t docker.tigergraph.com/tigergraph:latest
+    # - name: SSH into Image
+    #   run: |
+    #     ssh -p 14022 tigergraph@localhost
+    #     ls
+    - name: ls -a via ssh
+      uses: fifsky/ssh-action@master
+      with:
+        command: |
+          ls -a
+        host: localhost
+        user: tigergraph
+        key: ~/.ssh/id_rsa 
 # t

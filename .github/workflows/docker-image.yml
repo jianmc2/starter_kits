@@ -29,6 +29,7 @@ jobs:
         command: |
           ls -a
         host: localhost
+        port: 14022
         user: tigergraph
         pass: tigergraph
         args: "-tt"

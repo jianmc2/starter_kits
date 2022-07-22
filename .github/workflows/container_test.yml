@@ -18,7 +18,7 @@ jobs:
         ps
     - name: Check Ubuntu version
       run: |
-        wget -O tigergraph-3.6.1-offline.tar.gz "https://drive.google.com/uc?export=download&id=1xNhtDgc_jkZUEDzdc5_nI9cuTi9h2odU&confirm=yes"
+        wget -O tigergraph-3.6.1-offline.tar.gz "https://dl.tigergraph.com/enterprise-edition/tigergraph-3.6.1-offline.tar.gz"
     - name: Extract tar
       run: tar -xzf tigergraph-3.6.1-offline.tar.gz
     - name: CD into extracted file
@@ -32,6 +32,9 @@ jobs:
       run: |
         pwd
         sudo tigergraph-3.6.1-offline/install.sh -n
+    - name: Check logs
+      if: always()
+      run: cat tigergraph-3.6.1-offline/logs/precheck.log.m1
     # - name: Start Graph
     #   run: gadmin config
 # t

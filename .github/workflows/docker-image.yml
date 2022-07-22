@@ -28,7 +28,7 @@ jobs:
       uses: appleboy/ssh-action@v0.1.4
       with:
         host: localhost
-        key_path: ~/.ssh/id_rsa
+        key: ~/.ssh/id_rsa
         port: 22
         script: ls -a
 # t

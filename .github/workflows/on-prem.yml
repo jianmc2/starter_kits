@@ -24,6 +24,7 @@ jobs:
         ls
         jq '.BasicConfig.NodeList[0]= "m1: "$(hostname -I)""' install_conf.json > tmp.$$.json && mv tmp.$$.json install_conf.json
         cat install_conf.json
+        hostname -I
     # - name: Install TigerGraph
     #   run: |
     #     pwd

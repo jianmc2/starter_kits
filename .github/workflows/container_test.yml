@@ -15,9 +15,7 @@ jobs:
     steps:
     - name: Check GSQL
       run: |
-        cd ..
-        ls
-        pwd
+        ps
 
     # - name: Start Graph
     #   run: gadmin config

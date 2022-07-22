@@ -1,10 +1,10 @@
 name: Docker Image CI
 
 on:
-  # fork:
-  #   branches: [ "3.7" ]
-  push:
+  fork:
     branches: [ "3.7" ]
+  # push:
+  #   branches: [ "3.7" ]
 
 jobs:
 

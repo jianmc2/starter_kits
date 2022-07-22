@@ -1,4 +1,4 @@
-name: Prem Solution
+name: Container Test
 
 on:
   push:

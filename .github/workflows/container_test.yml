@@ -14,7 +14,9 @@ jobs:
     container: tigergraph/tigergraph
     steps:
     - name: Check GSQL
-      run: gadmin config
+      run: |
+        ls
+        ssh -p 14022 tigergraph@localhost
 
     # - name: Start Graph
     #   run: gadmin config

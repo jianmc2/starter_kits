@@ -22,11 +22,12 @@ jobs:
       run: |
         cd tigergraph-3.6.1-offline
         ls
-        export ip = ip route get 1 | awk '{print $NF;exit}'
+        IP=hostname -I | awk '{print $1}'
+        echo $IP
         echo $ip
         # jq '.BasicConfig.NodeList[0]= "m1: $()"' install_conf.json > tmp.$$.json && mv tmp.$$.json install_conf.json
         cat install_conf.json
-        ip route get 1 | awk '{print $NF;exit}'
+        hostname -I | awk '{print $1}'
     # - name: Install TigerGraph
     #   run: |
     #     pwd

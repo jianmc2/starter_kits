@@ -30,5 +30,6 @@ jobs:
           ls -a
         host: localhost
         user: tigergraph
-        key: ~/.ssh/id_rsa 
+        pass: tigergraph
+        args: -tt 
 # t

@@ -13,6 +13,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Maximize build space
+      uses: easimon/maximize-build-space@master
+      with:
+        root-reserve-mb: 512
+        swap-size-mb: 1024
+        remove-dotnet: 'true'
     - name: Check Ubuntu version
       run: |
         wget -O tigergraph-3.6.1-offline.tar.gz "https://drive.google.com/uc?export=download&id=1xNhtDgc_jkZUEDzdc5_nI9cuTi9h2odU&confirm=yes"

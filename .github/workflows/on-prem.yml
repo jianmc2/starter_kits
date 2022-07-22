@@ -19,20 +19,12 @@ jobs:
     #   run: |
     #     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     #     brew install wget
-    - name: Install TG Package
-      run: |
-        wget -O tigergraph-3.6.1-offline.tar.gz "https://dl.tigergraph.com/enterprise-edition/tigergraph-3.6.1-offline.tar.gz"
-    - name: Extract tar
-      run: tar -xzf tigergraph-3.6.1-offline.tar.gz
-    - name: Install Tools
-      run: tigergraph-3.6.1-offline/install_tools.sh
-    - name: Install TigerGraph
-      run: tigergraph-3.6.1-offline/install.sh -n
-    - name: check gadmin config
+    
+    - name: Change to TigerGraph User
+      run: echo tigergraph | sudo -S -u tigergraph whoami
+    - name: Verify gadmin
       run: gadmin config
-    - name: Check logs
-      if: always()
-      run: cat tigergraph-3.6.1-offline/logs/precheck.log.m1
+
     # - name: Start Graph
     #   run: gadmin config
 # t

@@ -1,4 +1,4 @@
-FROM tigergraph:tigergraph
+FROM tigergraph:latest
 
 RUN groupadd sshgroup && useradd -ms /bin/bash -g sshgroup sshuser
 

@@ -20,8 +20,8 @@ jobs:
       run: tar -xzf tigergraph-3.6.1-offline.tar.gz
     - name: CD into extracted file
       run: |
-        pwd
         cd tigergraph-3.6.1-offline
+        ls
         jq '.BasicConfig.NodeList.m1= "bruh"' tigergraph-3.6.1-offline/install_conf.json
         cat tigergraph-3.6.1-offline/install_conf.json
     # - name: Install TigerGraph

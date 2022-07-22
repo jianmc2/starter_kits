@@ -22,8 +22,8 @@ jobs:
       run: |
         cd tigergraph-3.6.1-offline
         ls
-        jq '.BasicConfig.NodeList.m1= "bruh"' tigergraph-3.6.1-offline/install_conf.json
-        cat tigergraph-3.6.1-offline/install_conf.json
+        jq '.BasicConfig.NodeList.m1= "bruh"' install_conf.json
+        cat install_conf.json
     # - name: Install TigerGraph
     #   run: |
     #     pwd

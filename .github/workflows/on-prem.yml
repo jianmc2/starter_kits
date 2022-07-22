@@ -24,6 +24,8 @@ jobs:
         wget -O tigergraph-3.6.1-offline.tar.gz "https://dl.tigergraph.com/enterprise-edition/tigergraph-3.6.1-offline.tar.gz"
     - name: Extract tar
       run: tar -xzf tigergraph-3.6.1-offline.tar.gz
+    - name: Install Tools
+      run: sudo tigergraph-3.6.1-offline/install_tools.sh
     - name: Install TigerGraph
       run: sudo tigergraph-3.6.1-offline/install.sh -n
     - name: check gadmin config

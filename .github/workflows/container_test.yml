@@ -16,7 +16,8 @@ jobs:
     - name: Check GSQL
       run: |
         ls
-        ssh -p 14022 tigergraph@localhost
+        pwd
+        docker ps
 
     # - name: Start Graph
     #   run: gadmin config

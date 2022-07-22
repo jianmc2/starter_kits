@@ -1,0 +1,21 @@
+name: Prem Solution
+
+on:
+  push:
+    branches: [ "3.7" ]
+  pull_request:
+    branches: [ "3.7" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    container: tigergraph/tigergraph
+    steps:
+    - name: Check GSQL
+      run: gadmin config
+
+    # - name: Start Graph
+    #   run: gadmin config
+# t

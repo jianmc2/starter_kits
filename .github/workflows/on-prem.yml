@@ -35,6 +35,7 @@ jobs:
       run: |
         pwd
         sudo tigergraph-3.6.1-offline/install.sh -n
+        cat logs/precheck.log.m1 
     # - name: Start Graph
     #   run: gadmin config
 # t

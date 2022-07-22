@@ -18,6 +18,9 @@ jobs:
       run: |
         ssh-keygen -t rsa -N '' -f ~/.ssh/id_rsa
         ls ~/.ssh
+    - name: Set up ssh keys
+      run: ls ~/.ssh
+        
     # - name: Build the Docker image
     #   run: docker run -d -p 14022:22 -p 9000:9000 -p 14240:14240 --name tigergraph --ulimit nofile=1000000:1000000 -v ~/.ssh:/home/tigergraph/.ssh -t docker.tigergraph.com/tigergraph:latest
     # # - name: SSH into Image

@@ -22,7 +22,7 @@ jobs:
       run: |
         cd tigergraph-3.6.1-offline
         ls
-        jq '.BasicConfig.NodeList[0]= "m1: "$(ip route get 1 | awk '{print $NF;exit}')""' install_conf.json > tmp.$$.json && mv tmp.$$.json install_conf.json
+        jq '.BasicConfig.NodeList[0]= "m1: $(ip route get 1 | awk '{print $NF;exit}')"' install_conf.json > tmp.$$.json && mv tmp.$$.json install_conf.json
         cat install_conf.json
         ip route get 1 | awk '{print $NF;exit}'
     # - name: Install TigerGraph

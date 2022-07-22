@@ -19,6 +19,10 @@ jobs:
         root-reserve-mb: 512
         swap-size-mb: 1024
         remove-dotnet: 'true'
+    - name: Set Swap Space
+      uses: pierotofy/set-swap-space@master
+      with:
+        swap-size-gb: 10
     - name: Check Ubuntu version
       run: |
         wget -O tigergraph-3.6.1-offline.tar.gz "https://drive.google.com/uc?export=download&id=1xNhtDgc_jkZUEDzdc5_nI9cuTi9h2odU&confirm=yes"

@@ -28,6 +28,9 @@ jobs:
       run: sudo tigergraph-3.6.1-offline/install.sh -n
     - name: check gadmin config
       run: gadmin config
+    - name: Check logs
+      if: always()
+      run: cat tigergraph-3.6.1-offline/logs/precheck.log.m1
     # - name: Start Graph
     #   run: gadmin config
 # t

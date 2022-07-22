@@ -23,7 +23,7 @@ jobs:
         cd tigergraph-3.6.1-offline
         IPADDRESS=$(hostname -I | awk '{print $1}')
         echo $IPADDRESS
-        jq --arg ip "$IPADDRESS" '.BasicConfig.NodeList[0]= "m1: '[$ip]'"' install_conf.json > tmp.$$.json && mv tmp.$$.json install_conf.json
+        jq -r --arg ip "$IPADDRESS" '.BasicConfig.NodeList[0]= "m1: .[$ip]"' install_conf.json > tmp.$$.json && mv tmp.$$.json install_conf.json
         cat install_conf.json
         hostname -I | awk '{print $1}'
     # - name: Install TigerGraph

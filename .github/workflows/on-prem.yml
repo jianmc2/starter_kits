@@ -20,8 +20,8 @@ jobs:
     #     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
     #     brew install wget
     
-    - name: Change to TigerGraph User
-      run: echo tigergraph | sudo -S -u tigergraph whoami
+    # - name: Change to TigerGraph User
+    #   run: echo tigergraph | sudo -S -u tigergraph whoami
     - name: Verify gadmin
       run: whoami
 

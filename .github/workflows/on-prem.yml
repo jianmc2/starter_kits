@@ -23,7 +23,7 @@ jobs:
     # - name: Change to TigerGraph User
     #   run: echo tigergraph | sudo -S -u tigergraph whoami
     - name: Verify gadmin
-      run: whoami
+      run: gadmin status
 
     # - name: Start Graph
     #   run: gadmin config

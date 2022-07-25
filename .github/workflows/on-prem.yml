@@ -17,12 +17,23 @@ jobs:
     steps:
     - name: Checkout repository content
       uses: actions/checkout@v3
-    - name: Verify gadmin
-      run: gadmin status
-    - name: Start Graph
-      run: gadmin start all
-    - name: Reset Graph
-      run: gsql 'DROP ALL'
+        with:
+          fetch-depth: 0
+    # - name: Verify gadmin
+    #   run: gadmin status
+    # - name: Start Graph
+    #   run: gadmin start all
+    # - name: Reset Graph
+    #   run: gsql 'DROP ALL'
     # - name: Schema Change
     #   run: gsql ./COVID-19-Analysis/db_scripts/schemas/schema.gsql
+    - name: Get changed files
+      id: changed-files
+      uses: tj-actions/changed-files@v24
+
+    - name: List all changed files
+      run: |
+        for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+          echo "$file was changed"
+        done
 

@@ -17,10 +17,10 @@ jobs:
     steps:
     - name: Checkout repository content
       uses: actions/checkout@v3
-    # - name: Verify gadmin
-    #   run: gadmin status
-    # - name: Start Graph
-    #   run: gadmin start all
+    - name: Verify gadmin
+      run: gadmin status
+    - name: Start Graph
+      run: gadmin start all
     - name: Schema Change
-      run: ls ./COVID-19-Analysis/db_scripts/schemas/schema.gsql
+      run: gsql ./COVID-19-Analysis/db_scripts/schemas/schema.gsql
 

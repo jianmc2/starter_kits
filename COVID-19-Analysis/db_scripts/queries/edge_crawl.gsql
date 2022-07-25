@@ -24,4 +24,4 @@ CREATE QUERY edge_crawl()FOR GRAPH MyGraph SYNTAX V2 {
 	         ACCUM @@edge_list += e;
 	
   PRINT  @@edge_list; 
-} S
+}

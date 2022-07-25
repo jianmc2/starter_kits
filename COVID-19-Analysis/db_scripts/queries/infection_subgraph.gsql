@@ -42,4 +42,4 @@ CREATE QUERY infection_subgraph(vertex<Patient> p) FOR GRAPH MyGraph SYNTAX V2 {
 	end;
 	
 	print @@edge_set;
-} S
+}

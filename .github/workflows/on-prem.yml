@@ -33,7 +33,13 @@ jobs:
         dir_names: "true"
     - name: List all changed files
       run: |
+        pathArr = ()
         for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-          ls "`dirname $file`/schemas"
+          # ls "`dirname $file`/schemas"
+          pathArr += (`dirname $file`)
+          for value in "${arrVar[@]}"
+          do
+              echo $value
+          done
         done
 

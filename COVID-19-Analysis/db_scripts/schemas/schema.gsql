@@ -35,4 +35,4 @@ CREATE SCHEMA_CHANGE JOB change_schema_of_MyGraph FOR GRAPH MyGraph {
 	ADD UNDIRECTED EDGE PATIENT_TRAVELED(FROM Patient, TO TravelEvent);
 }
 RUN SCHEMA_CHANGE JOB change_schema_of_MyGraph
-DROP JOB change_schema_of_MyGraph s
+DROP JOB change_schema_of_MyGraph 

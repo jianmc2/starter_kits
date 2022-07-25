@@ -13,12 +13,11 @@ jobs:
   build:
 
     runs-on: self-hosted
-
+    name: Test changed-files
     steps:
-    - name: Checkout repository content
-      uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
     # - name: Verify gadmin
     #   run: gadmin status
     # - name: Start Graph

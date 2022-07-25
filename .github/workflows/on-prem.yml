@@ -21,6 +21,8 @@ jobs:
       run: gadmin status
     - name: Start Graph
       run: gadmin start all
-    - name: Schema Change
-      run: gsql ./COVID-19-Analysis/db_scripts/schemas/schema.gsql
+    - name: Reset Graph
+      run: gsql 'DROP ALL'
+    # - name: Schema Change
+    #   run: gsql ./COVID-19-Analysis/db_scripts/schemas/schema.gsql
 

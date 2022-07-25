@@ -37,7 +37,7 @@ jobs:
         for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
           # ls "`dirname $file`/schemas"
           pathArr += (`dirname $file`)
-          for value in "${arrVar[@]}"
+          for value in "${pathArr[@]}"
           do
               echo $value
           done

@@ -21,5 +21,5 @@ jobs:
     - name: Start Graph
       run: gadmin start all
     - name: Schema Change
-      run: gsql ./COVID-19-Analysis/db_scripts/schemas/schema.gsql
+      run: ls ./COVID-19-Analysis/db_scripts/schemas/schema.gsql
 

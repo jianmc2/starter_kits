@@ -39,9 +39,9 @@ jobs:
           if ! [[ ${pathArr[*]} =~ "`dirname $file`" ]]; then
               pathArr+=(`dirname $file`)
           fi
-          for value in "${pathArr[@]}"
-          do
-              echo $value
-          done
+        done
+        for value in "${pathArr[@]}"
+        do
+            echo $value
         done
 

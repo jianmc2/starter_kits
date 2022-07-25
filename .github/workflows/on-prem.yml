@@ -15,16 +15,11 @@ jobs:
     runs-on: self-hosted
 
     steps:
-    # - name: Install Packages
-    #   run: |
-    #     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-    #     brew install wget
-    
-    # - name: Change to TigerGraph User
-    #   run: echo tigergraph | sudo -S -u tigergraph whoami
+    - uses: actions/checkout@v3
     - name: Verify gadmin
       run: gadmin status
+    - name: Start Graph
+      run: gadmin start all
+    - name: Schema Change
+      run: gsql ./COVID-19-Analysis/db_scripts/schemas/schema.gsql
 
-    # - name: Start Graph
-    #   run: gadmin config
-# t

@@ -36,9 +36,10 @@ jobs:
         pathArr=()
         for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
           # ls "`dirname $file`/schemas"
-          if ! [[ ${pathArr[*]} =~ "`dirname $file`" ]]; then
-              pathArr+=(`dirname $file`)
-          fi
+          # if ! [[ ${pathArr[*]} =~ "`dirname $file`" ]]; then
+          #     pathArr+=(`dirname $file`)
+          # fi
+          pathArr+=(`dirname $file`)
         done
         for value in "${pathArr[@]}"
         do

@@ -14,4 +14,4 @@ CREATE QUERY age_distribution() FOR GRAPH MyGraph SYNTAX V2 {
 	        accum @@age_map += ((year(now()) - s.birth_year) -> 1);
 	
 	print @@age_map;
-}
+} s

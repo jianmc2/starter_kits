@@ -41,6 +41,6 @@ jobs:
         done
         for value in "${pathArr[@]}"
         do
-            echo $value
+            for FILE in "$value/queries"; do echo $FILE; done
         done
 

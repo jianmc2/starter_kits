@@ -30,7 +30,7 @@ jobs:
       with:
         dir_names: "true"
     - id: step1
-    - name: List all changed files
+      name: List all changed files
       run: |
         pathArr=()
         for file in ${{ steps.changed-files.outputs.all_changed_files }}; do

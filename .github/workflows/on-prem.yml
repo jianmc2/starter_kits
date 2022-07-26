@@ -48,7 +48,8 @@ jobs:
             done
             for FILE2 in "$value/jobs"/*; do paths+=("$FILE2"); done
         done
-        echo "::set-output name=test::$paths"
+
+        echo "::set-output name=test::toJson($paths)"
     # - name: Run Graph Installations 
     #   # shell: gsql {0}
     #   run: |
@@ -69,5 +70,5 @@ jobs:
     needs: build
     steps:
     - name: test
-      run: echo ${{needs.build.outputs.output1}}
+      run: echo ${{fromJson(needs.build.outputs.output1)}}
 

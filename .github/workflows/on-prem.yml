@@ -40,13 +40,13 @@ jobs:
         done
         for value in "${pathArr[@]}"
         do
-            for FILE in "$value/schemas"/*; do pathArr+=($FILE); done
+            for FILE in "$value/schemas"/*; do pathArr+=("$FILE"); done
             USE GRAPH MyGraph
             for FILE in "$value/queries"/* 
             do 
-              pathArr+=($FILE)
+              pathArr+=("$FILE")
             done
-            for FILE in "$value/jobs"/*; do pathArr+=($FILE); done
+            for FILE in "$value/jobs"/*; do pathArr+=("$FILE"); done
         done
         echo "::set-output name=test::$pathArr"
     # - name: Run Graph Installations 

@@ -18,39 +18,35 @@ jobs:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
-    # - name: Start TG
-    #   run: gadmin start all
+    - name: Start TG
+      run: gadmin start all
     # - name: Reset Graph
     #   run: gsql 'DROP ALL'
-    # - name: Schema Change
-    #   run: gsql ./COVID-19-Analysis/db_scripts/schemas/schema.gsql
-    # - name: Get changed files
-    #   id: changed-files
-    #   uses: tj-actions/changed-files@v24
-    #   with:
-    #     dir_names: "true"
-    # - name: List all changed files
-    #   run: |
-    #     pathArr=()
-    #     for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-    #       if ! [[ ${pathArr[*]} =~ "`dirname $file`" ]]; then
-    #           pathArr+=(`dirname $file`)
-    #       fi
-    #     done
-    #     gsql
-        
-    #     # for value in "${pathArr[@]}"
-    #     # do
-    #     #     for FILE in "$value/schemas"/*; do gsql $FILE; done
-    #     #     for FILE in "$value/queries"/* 
-    #     #     do 
-    #     #       gsql 'USE GRAPH MyGraph'
-    #     #       gsql $FILE
-    #     #     done
-    #     #     for FILE in "$value/jobs"/*; do gsql $FILE; done
-    #     #     gsql 'DROP ALL'
-    #     # done
-    - name: Shell
+    - name: Get changed files
+      id: changed-files
+      uses: tj-actions/changed-files@v24
+      with:
+        dir_names: "true"
+    - name: List all changed files
+      run: |
+        pathArr=()
+        for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+          if ! [[ ${pathArr[*]} =~ "`dirname $file`" ]]; then
+              pathArr+=(`dirname $file`)
+          fi
+        done
+    - name: Run Graph Installations 
       shell: gsql {0}
-      run: ls
+        for value in "${pathArr[@]}"
+        do
+            for FILE in "$value/schemas"/*; do @$FILE; done
+            USE GRAPH MyGraph
+            for FILE in "$value/queries"/* 
+            do 
+              @$FILE
+            done
+            for FILE in "$value/jobs"/*; do @$FILE; done
+            gsql 'DROP ALL'
+        done
+
 

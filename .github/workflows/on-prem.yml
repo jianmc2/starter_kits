@@ -38,16 +38,17 @@ jobs:
               pathArr+=(`dirname $file`)
           fi
         done
+        paths=()
         for value in "${pathArr[@]}"
         do
-            for FILE in "$value/schemas"/*; do pathArr+=($FILE); done
+            for FILE in "$value/schemas"/*; do paths+=("$FILE"); done
             for FILE in "$value/queries"/* 
             do 
-              pathArr+=($FILE)
+              paths+=("$FILE")
             done
-            for FILE in "$value/jobs"/*; do pathArr+=($FILE); done
+            for FILE in "$value/jobs"/*; do paths+=("$FILE"); done
         done
-        echo "::set-output name=test::$pathArr"
+        echo "::set-output name=test::$paths"
     # - name: Run Graph Installations 
     #   # shell: gsql {0}
     #   run: |

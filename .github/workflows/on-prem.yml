@@ -36,7 +36,7 @@ jobs:
           fi
         done
     - name: Run Graph Installations 
-      shell: gsql {0}
+      # shell: gsql {0}
       run: |
         for value in "${pathArr[@]}"
         do

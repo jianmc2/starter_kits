@@ -51,6 +51,6 @@ jobs:
     #     #     gsql 'DROP ALL'
     #     # done
     - name: Shell
-      shell: /home/tigergraph/tigergraph/app/cmd/gsql -e {0}
+      shell: gsql {0}
       run: ls
 

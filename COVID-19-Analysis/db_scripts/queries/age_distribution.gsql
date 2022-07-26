@@ -1,4 +1,4 @@
-USE GRAPH MyGraph
+
 CREATE QUERY age_distribution() FOR GRAPH MyGraph SYNTAX V2 { 
 	/**********************************************************
 	 * This query returns the distribution of the number of 

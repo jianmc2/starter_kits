@@ -14,7 +14,7 @@ jobs:
 
     runs-on: self-hosted
     outputs: 
-      output1: ${{ steps.step1.outputs.test }}
+      matrix: ${{ steps.step1.outputs.matrix }}
     name: Test changed-files
     steps:
     - uses: actions/checkout@v3
@@ -38,18 +38,22 @@ jobs:
               pathArr+=(`dirname $file`)
           fi
         done
-        paths=""
+        paths=()
         for value in "${pathArr[@]}"
         do
-            for FILE in "$value/schemas"/*; do paths+="$FILE"; done
+            for FILE in "$value/schemas"/*; do paths+=("$FILE"); done
             for FILE1 in "$value/queries"/* 
             do 
-              paths+=",$FILE1"
+              paths+=("$FILE1")
             done
-            for FILE2 in "$value/jobs"/*; do paths+=",$FILE2"; done
+            for FILE2 in "$value/jobs"/*; do paths+=("$FILE2"); done
         done
-
-        echo "::set-output name=test::$paths"
+        echo "$paths" | \
+        jq --slurp --raw-input 'split("\n")[:-1]' | \
+        jq  "{\"filepath\": .[] }" | \
+        jq -sc "{ \"include\": . }" > tmp
+        matrixStringifiedObject=$(cat ./tmp)
+        echo "::set-output name=matrix::$matrixStringifiedObject"
     # - name: Run Graph Installations 
     #   # shell: gsql {0}
     #   run: |
@@ -68,9 +72,9 @@ jobs:
   gsql: 
     runs-on: self-hosted
     needs: build
+    strategy:
+      matrix: ${{fromJson(needs.build.outputs.matrix)}}
     steps:
     - name: test
-      run: |
-        IFS=',' read -r -a pathArray <<< "${{ needs.build.outputs.output1 }}"
-        echo "${pathArray[0]}"
+      run: echo ${{matrix.filepath}}
 

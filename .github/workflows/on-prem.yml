@@ -70,5 +70,7 @@ jobs:
     needs: build
     steps:
     - name: test
-      run: echo ${{ needs.build.outputs.output1 }}
+      run: |
+        IFS=',' read -r -a pathArray <<< "${{ needs.build.outputs.output1 }}"
+      echo "${pathArray[0]}"
 

@@ -36,4 +36,3 @@ CREATE SCHEMA_CHANGE JOB change_schema_of_MyGraph FOR GRAPH MyGraph {
 }
 RUN SCHEMA_CHANGE JOB change_schema_of_MyGraph
 DROP JOB change_schema_of_MyGraph 
-USE GRAPH MyGraph

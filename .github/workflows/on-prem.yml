@@ -18,9 +18,7 @@ jobs:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
-    - name: Verify gadmin
-      run: gadmin status
-    - name: Start Graph
+    - name: Start TG
       run: gadmin start all
     - name: Reset Graph
       run: gsql 'DROP ALL'

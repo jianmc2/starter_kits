@@ -13,13 +13,15 @@ jobs:
   build:
 
     runs-on: self-hosted
+    outputs: 
+      output1: ${{ steps.step1.outputs.test }}
     name: Test changed-files
     steps:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
-    - name: Start TG
-      run: gadmin start all
+    # - name: Start TG
+    #   run: gadmin start all
     # - name: Reset Graph
     #   run: gsql 'DROP ALL'
     - name: Get changed files
@@ -27,6 +29,7 @@ jobs:
       uses: tj-actions/changed-files@v24
       with:
         dir_names: "true"
+    - id: step1
     - name: List all changed files
       run: |
         pathArr=()
@@ -35,20 +38,26 @@ jobs:
               pathArr+=(`dirname $file`)
           fi
         done
-    - name: Run Graph Installations 
-      # shell: gsql {0}
-      run: |
-        for value in "${pathArr[@]}"
-        do
-            $echo value
-            # for FILE in "$value/schemas"/*; do @$FILE; done
-            # USE GRAPH MyGraph
-            # for FILE in "$value/queries"/* 
-            # do 
-            #   @$FILE
-            # done
-            # for FILE in "$value/jobs"/*; do @$FILE; done
-            # gsql 'DROP ALL'
-        done
-
+        echo "::set-output name=test::$pathArr"
+    # - name: Run Graph Installations 
+    #   # shell: gsql {0}
+    #   run: |
+    #     for value in "${pathArr[@]}"
+    #     do
+    #         $echo value
+    #         # for FILE in "$value/schemas"/*; do @$FILE; done
+    #         # USE GRAPH MyGraph
+    #         # for FILE in "$value/queries"/* 
+    #         # do 
+    #         #   @$FILE
+    #         # done
+    #         # for FILE in "$value/jobs"/*; do @$FILE; done
+    #         # gsql 'DROP ALL'
+    #     done
+  gsql: 
+    runs-on: self-hosted
+    needs: build
+    steps:
+    - name: test
+      run: echo ${{needs.build.outputs.output1}}
 

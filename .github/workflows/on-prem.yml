@@ -51,6 +51,5 @@ jobs:
         #     gsql 'DROP ALL'
         # done
     - name: Shell
-      shell: gsql
       run: ls
 

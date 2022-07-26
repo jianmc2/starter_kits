@@ -49,7 +49,7 @@ jobs:
             for FILE2 in "$value/jobs"/*; do paths+=("$FILE2"); done
         done
 
-        echo "::set-output name=test::toJson($paths)"
+        echo "::set-output name=test::{\"include\":$paths}"
     # - name: Run Graph Installations 
     #   # shell: gsql {0}
     #   run: |

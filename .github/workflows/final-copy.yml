@@ -1,4 +1,4 @@
-name: Prem Solution
+name: Final Workflow
 
 on:
   # fork:
@@ -22,15 +22,12 @@ jobs:
         fetch-depth: 0
     - name: Start TG
       run: gadmin start all
-    - name: Reset Graph
-      run: gsql 'DROP ALL'
     - name: Get changed files
       id: changed-files
       uses: tj-actions/changed-files@v24
       with:
         dir_names: "true"
-    - id: step1
-      name: List all changed files
+    - name: Install Schemas/Queries/Jobs
       run: |
         pathArr=()
         for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
@@ -40,6 +37,7 @@ jobs:
         done
         for value in "${pathArr[@]}"
         do
+            gsql 'DROP ALL'
             for FILE in "$value/schemas"/*
             do 
               gsql $FILE

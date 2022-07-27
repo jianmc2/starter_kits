@@ -52,6 +52,7 @@ jobs:
         jq --slurp --raw-input 'split("\n")[:-1]' | \
         jq  "{\"filepath\": .[] }" | \
         jq -sc "{ \"include\": . }" > tmp
+        cat ./tmp
         matrixStringifiedObject=$(cat ./tmp)
         echo "::set-output name=matrix::$matrixStringifiedObject"
     # - name: Run Graph Installations 

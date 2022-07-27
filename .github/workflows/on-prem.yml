@@ -101,7 +101,7 @@ jobs:
     runs-on: self-hosted
     needs: build
     strategy:
-      schemas: ${{fromJson(needs.build.outputs.schemas)}}
+      matrix: ${{fromJson(needs.build.outputs.schemas)}}
     steps:
     # - name: test
     #   shell: gsql {0}

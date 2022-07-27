@@ -15,4 +15,3 @@ CREATE QUERY age_distribution() FOR GRAPH MyGraph SYNTAX V2 {
 	
 	print @@age_map;
 } 
-

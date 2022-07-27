@@ -44,6 +44,8 @@ jobs:
             do 
               cp $FILE tmp.gsql
               ls
+              sed -i '1s/^/"USE GRAPH MyGraph"\n/' tmp.gsql
+              cat tmp.gsql
             done 
             # for FILE1 in "$value/queries"/* 
             # do 

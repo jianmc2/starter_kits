@@ -5,5 +5,3 @@ CREATE LOADING JOB CampaignMemberJob FOR GRAPH MyGraph {
       LOAD MyDataSource TO EDGE is_connected_to VALUES($4, $0) USING SEPARATOR=",", HEADER="true", EOL="\n";
       LOAD MyDataSource TO EDGE is_active_as VALUES($3, $0) USING SEPARATOR=",", HEADER="true", EOL="\n";
     }
-
-

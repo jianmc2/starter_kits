@@ -51,7 +51,7 @@ jobs:
         # done
         for value in "${pathArr[@]}"
         do
-          paths=$(find ./lambdas -name '*.gsql')
+          paths=$(find $value -name '*.gsql')
           echo "$paths" | \
           jq --slurp --raw-input 'split("\n")[:-1]' | \
           jq  "{\"filepath\": .[] }" | \

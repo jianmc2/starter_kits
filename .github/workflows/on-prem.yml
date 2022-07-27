@@ -89,5 +89,7 @@ jobs:
     steps:
     - name: test
       shell: gsql {0}
-      run: "@${{ matrix.filepath }}"
+      run: |
+        USE GRAPH MyGraph
+        "@${{ matrix.filepath }}"
 

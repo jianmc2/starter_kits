@@ -76,5 +76,5 @@ jobs:
       matrix: ${{fromJson(needs.build.outputs.matrix)}}
     steps:
     - name: test
-      run: echo ${{matrix.filepath}}
+      run: echo ${{ matrix.filepath }}
 

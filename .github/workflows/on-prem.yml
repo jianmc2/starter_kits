@@ -84,10 +84,10 @@ jobs:
   gsql: 
     runs-on: self-hosted
     needs: build
-    # shell: gsql {0}
+    shell: gsql {0}
     strategy:
       matrix: ${{fromJson(needs.build.outputs.matrix)}}
     steps:
     - name: test
-      run: echo "${{ matrix.filepath }}"
+      run: "@${{ matrix.filepath }}"
 

@@ -14,9 +14,7 @@ jobs:
 
     runs-on: self-hosted
     outputs: 
-      schemas: ${{ steps.step1.outputs.schemas }}
-      queries: ${{ steps.step1.outputs.queries}}
-      jobs: ${{ steps.step1.outputs.jobs }}
+      graphs: ${{ steps.step1.outputs.graphs }}
     name: Test changed-files
     steps:
     - uses: actions/checkout@v3
@@ -35,11 +33,21 @@ jobs:
       name: List all changed files
       run: |
         pathArr=()
+        pathStr=""
         for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
           if ! [[ ${pathArr[*]} =~ "`dirname $file`" ]]; then
               pathArr+=(`dirname $file`)
+              pathStr+=`dirname $file`
+              pathStr+=$'\n'
           fi
         done
+        echo "$pathStr" | \
+        jq --slurp --raw-input 'split("\n")[:-1]' | \
+        jq  "{\"filepath\": .[] }" | \
+        jq -sc "{ \"include\": . }" > tmp
+        cat ./tmp
+        matrixStringifiedObject=$(cat ./tmp)
+        echo "::set-output name=graphs::$matrixStringifiedObject"
         # paths=()
         # for value in "${pathArr[@]}"
         # do
@@ -51,37 +59,50 @@ jobs:
         #     done
         #     for FILE2 in "$value/jobs"/*; do paths+=("$FILE2"); done
         # done
-        for value in "${pathArr[@]}"
-        do
-          schemas=$(find $value/schemas -name '*.gsql')
-          echo "$schemas" | \
-          jq --slurp --raw-input 'split("\n")[:-1]' | \
-          jq  "{\"filepath\": .[] }" | \
-          jq -sc "{ \"include\": . }" > tmp
-          cat ./tmp
-          matrixStringifiedObject=$(cat ./tmp)
-          echo "::set-output name=schemas::$matrixStringifiedObject"
+        # for value in "${pathArr[@]}"
+        # do
+        #   schemas=$(find $value/schemas -name '*.gsql')
+        #   echo "$schemas" | \
+        #   jq --slurp --raw-input 'split("\n")[:-1]' | \
+        #   jq  "{\"filepath\": .[] }" | \
+        #   jq -sc "{ \"include\": . }" > tmp
+        #   cat ./tmp
+        #   matrixStringifiedObject=$(cat ./tmp)
+        #   echo "::set-output name=schemas::$matrixStringifiedObject"
 
-          queries=$(find $value/queries -name '*.gsql')
-          echo "$queries" | \
-          jq --slurp --raw-input 'split("\n")[:-1]' | \
-          jq  "{\"filepath\": .[] }" | \
-          jq -sc "{ \"include\": . }" > tmp
-          cat ./tmp
-          matrixStringifiedObject=$(cat ./tmp)
-          echo "::set-output name=queries::$matrixStringifiedObject"        
+        #   queries=$(find $value/queries -name '*.gsql')
+        #   echo "$queries" | \
+        #   jq --slurp --raw-input 'split("\n")[:-1]' | \
+        #   jq  "{\"filepath\": .[] }" | \
+        #   jq -sc "{ \"include\": . }" > tmp
+        #   cat ./tmp
+        #   matrixStringifiedObject=$(cat ./tmp)
+        #   echo "::set-output name=queries::$matrixStringifiedObject"        
           
-          jobs=$(find $value/jobs -name '*.gsql')
-          echo "$jobs" | \
-          jq --slurp --raw-input 'split("\n")[:-1]' | \
-          jq  "{\"filepath\": .[] }" | \
-          jq -sc "{ \"include\": . }" > tmp
-          cat ./tmp
-          matrixStringifiedObject=$(cat ./tmp)
-          echo "::set-output name=jobs::$matrixStringifiedObject"
+        #   jobs=$(find $value/jobs -name '*.gsql')
+        #   echo "$jobs" | \
+        #   jq --slurp --raw-input 'split("\n")[:-1]' | \
+        #   jq  "{\"filepath\": .[] }" | \
+        #   jq -sc "{ \"include\": . }" > tmp
+        #   cat ./tmp
+        #   matrixStringifiedObject=$(cat ./tmp)
+        #   echo "::set-output name=jobs::$matrixStringifiedObject"
 
-        done
-
+        # done
+  graph: 
+    runs-on: self-hosted
+    needs: build
+    outputs: 
+      schemas: ${{ steps.step1.outputs.schemas }}
+      queries: ${{ steps.step1.outputs.queries}}
+      jobs: ${{ steps.step1.outputs.jobs }}
+    strategy:
+      matrix: ${{fromJson(needs.build.outputs.graphs)}}
+    steps:
+    - name: Install Schema
+      shell: gsql {0}
+      run: |
+        @${{ matrix.filepath }}
     # - name: Run Graph Installations 
     #   # shell: gsql {0}
     #   run: |
@@ -97,37 +118,37 @@ jobs:
     #         # for FILE in "$value/jobs"/*; do @$FILE; done
     #         # gsql 'DROP ALL'
     #     done
-  schema: 
-    runs-on: self-hosted
-    needs: build
-    strategy:
-      matrix: ${{fromJson(needs.build.outputs.schemas)}}
-    steps:
-    - name: Install Schema
-      shell: gsql {0}
-      run: |
-        @${{ matrix.filepath }}
-  query: 
-    runs-on: self-hosted
-    needs: [build, schema]
-    strategy:
-      matrix: ${{fromJson(needs.build.outputs.queries)}}
-    steps:
-    - name: Install Queries
-      shell: gsql {0}
-      run: |
-        USE GRAPH MyGraph
-        @${{ matrix.filepath }}
-  job: 
-    runs-on: self-hosted
-    needs: [build, schema]
-    strategy:
-      matrix: ${{fromJson(needs.build.outputs.jobs)}}
-    steps:
-    - name: Install Jobs
-      shell: gsql {0}
-      run: |
-        USE GRAPH MyGraph
-        @${{ matrix.filepath }}
+  # schema: 
+  #   runs-on: self-hosted
+  #   needs: build
+  #   strategy:
+  #     matrix: ${{fromJson(needs.build.outputs.schemas)}}
+  #   steps:
+  #   - name: Install Schema
+  #     shell: gsql {0}
+  #     run: |
+  #       @${{ matrix.filepath }}
+  # query: 
+  #   runs-on: self-hosted
+  #   needs: [build, schema]
+  #   strategy:
+  #     matrix: ${{fromJson(needs.build.outputs.queries)}}
+  #   steps:
+  #   - name: Install Queries
+  #     shell: gsql {0}
+  #     run: |
+  #       USE GRAPH MyGraph
+  #       @${{ matrix.filepath }}
+  # job: 
+  #   runs-on: self-hosted
+  #   needs: [build, schema]
+  #   strategy:
+  #     matrix: ${{fromJson(needs.build.outputs.jobs)}}
+  #   steps:
+  #   - name: Install Jobs
+  #     shell: gsql {0}
+  #     run: |
+  #       USE GRAPH MyGraph
+  #       @${{ matrix.filepath }}
 
 

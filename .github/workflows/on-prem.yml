@@ -91,5 +91,5 @@ jobs:
       shell: gsql {0}
       run: |
         USE GRAPH MyGraph
-        "@${{ matrix.filepath }}"
+        @${{ matrix.filepath }}
 

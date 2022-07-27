@@ -109,7 +109,7 @@ jobs:
         @${{ matrix.filepath }}
   query: 
     runs-on: self-hosted
-    needs: build
+    needs: [build, schema]
     strategy:
       matrix: ${{fromJson(needs.build.outputs.queries)}}
     steps:
@@ -120,7 +120,7 @@ jobs:
         @${{ matrix.filepath }}
   job: 
     runs-on: self-hosted
-    needs: build
+    needs: [build, schema]
     strategy:
       matrix: ${{fromJson(needs.build.outputs.jobs)}}
     steps:

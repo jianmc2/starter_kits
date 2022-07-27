@@ -4,4 +4,3 @@ CREATE LOADING JOB CaseJob FOR GRAPH MyGraph {
       LOAD MyDataSource TO EDGE CASE_IN_CITY VALUES($4, $2, $6, $7) USING SEPARATOR=",", HEADER="true", EOL="\n";
       LOAD MyDataSource TO EDGE CASE_IN_PROVINCE VALUES($4, $1) USING SEPARATOR=",", HEADER="true", EOL="\n";
     }
-    

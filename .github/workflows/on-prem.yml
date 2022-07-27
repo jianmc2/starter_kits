@@ -111,5 +111,5 @@ jobs:
     - name: idek
       run: |
         testVar=${{fromJson(needs.build.outputs.queries)}}
-        echo $testVar
+        echo $testVar.filepath
 

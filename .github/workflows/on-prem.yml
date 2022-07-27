@@ -100,7 +100,8 @@ jobs:
     strategy:
       matrix: ${{fromJson(needs.build.outputs.graphs)}}
     steps:
-    - name: Parse Graphs
+    - id: step1
+      name: Parse Graphs
       # shell: gsql {0}
       run: |
         value=${{ matrix.filepath }}

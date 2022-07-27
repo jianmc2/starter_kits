@@ -42,10 +42,7 @@ jobs:
         do
             for FILE in "$value/schemas"/*
             do 
-              cp $FILE tmp.gsql
-              ls
-
-              cat tmp.gsql
+              gsql $FILE
             done 
             for FILE1 in "$value/queries"/* 
             do 

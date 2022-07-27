@@ -155,7 +155,7 @@ jobs:
     - name: Install Schema
       shell: gsql {0}
       run: |
-        echo ${{ matrix.filepath }}
+        @${{ matrix.filepath }}
   query: 
     runs-on: self-hosted
     needs: [build, graph]
@@ -165,8 +165,8 @@ jobs:
     - name: Install Queries
       shell: gsql {0}
       run: |
-        # USE GRAPH MyGraph
-        echo ${{ matrix.filepath }}
+        @USE GRAPH MyGraph
+        @${{ matrix.filepath }}
   job: 
     runs-on: self-hosted
     needs: [build, graph]
@@ -176,7 +176,7 @@ jobs:
     - name: Install Jobs
       shell: gsql {0}
       run: |
-        # USE GRAPH MyGraph
-        echo ${{ matrix.filepath }}
+        USE GRAPH MyGraph
+        @${{ matrix.filepath }}
 
 

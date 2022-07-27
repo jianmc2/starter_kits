@@ -52,10 +52,11 @@ jobs:
         for value in "${pathArr[@]}"
         do
           paths=$(find $value/schemas -name '*.gsql')
-          paths+="\n"
-          paths+=$(find $value/queries -name '*.gsql')
-          paths+="\n"
-          paths+=$(find $value/jobs -name '*.gsql')
+          # paths+="\n"
+          # paths+=$(find $value/queries -name '*.gsql')
+          # paths+="\n"
+          # paths+=$(find $value/jobs -name '*.gsql')
+          echo $paths
           echo "$paths" | \
           jq --slurp --raw-input 'split("\n")[:-1]' | \
           jq  "{\"filepath\": .[] }" | \

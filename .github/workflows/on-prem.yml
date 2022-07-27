@@ -49,14 +49,18 @@ jobs:
         #     done
         #     for FILE2 in "$value/jobs"/*; do paths+=("$FILE2"); done
         # done
-        paths=$(find ./lambdas -name '*.gsql')
-        echo "$paths" | \
-        jq --slurp --raw-input 'split("\n")[:-1]' | \
-        jq  "{\"filepath\": .[] }" | \
-        jq -sc "{ \"include\": . }" > tmp
-        cat ./tmp
-        matrixStringifiedObject=$(cat ./tmp)
-        echo "::set-output name=matrix::$matrixStringifiedObject"
+        for value in "${pathArr[@]}"
+        do
+          paths=$(find ./lambdas -name '*.gsql')
+          echo "$paths" | \
+          jq --slurp --raw-input 'split("\n")[:-1]' | \
+          jq  "{\"filepath\": .[] }" | \
+          jq -sc "{ \"include\": . }" > tmp
+          cat ./tmp
+          matrixStringifiedObject=$(cat ./tmp)
+          echo "::set-output name=matrix::$matrixStringifiedObject"
+        done
+
     # - name: Run Graph Installations 
     #   # shell: gsql {0}
     #   run: |

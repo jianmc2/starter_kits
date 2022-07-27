@@ -52,7 +52,9 @@ jobs:
         for value in "${pathArr[@]}"
         do
           paths=$(find $value/schemas -name '*.gsql')
+          paths+=" "
           paths+=$(find $value/queries -name '*.gsql')
+          paths+=" "
           paths+=$(find $value/jobs -name '*.gsql')
           echo "$paths" | \
           jq --slurp --raw-input 'split("\n")[:-1]' | \
@@ -81,10 +83,10 @@ jobs:
   gsql: 
     runs-on: self-hosted
     needs: build
-    shell: gsql {0}
+    # shell: gsql {0}
     strategy:
       matrix: ${{fromJson(needs.build.outputs.matrix)}}
     steps:
     - name: test
-      run: @${{ matrix.filepath }}
+      run: echo "${{ matrix.filepath }}"
 

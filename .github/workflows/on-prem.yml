@@ -1,12 +1,12 @@
 name: Prem Solution
 
 on:
-  # fork:
+  fork:
+    branches: [ "3.7" ]
+  # push:
   #   branches: [ "3.7" ]
-  push:
-    branches: [ "3.7" ]
-  pull_request:
-    branches: [ "3.7" ]
+  # pull_request:
+  #   branches: [ "3.7" ]
 
 jobs:
 
@@ -93,8 +93,7 @@ jobs:
   graph: 
     runs-on: self-hosted
     needs: build
-    uses: ./.github/workflows/single_graph.yml
-    with: 
+    outputs: 
       schemas: ${{ steps.step1.outputs.schemas }}
       queries: ${{ steps.step1.outputs.queries}}
       jobs: ${{ steps.step1.outputs.jobs }}
@@ -147,37 +146,37 @@ jobs:
     #         # for FILE in "$value/jobs"/*; do @$FILE; done
     #         # gsql 'DROP ALL'
     #     done
-  # schema: 
-  #   runs-on: self-hosted
-  #   needs: [build, graph]
-  #   strategy:
-  #     matrix: ${{fromJson(needs.graph.outputs.schemas)}}
-  #   steps:
-  #   - name: Install Schema
-  #     shell: gsql {0}
-  #     run: |
-  #       @${{ matrix.filepath }}
-  # query: 
-  #   runs-on: self-hosted
-  #   needs: [schema, graph]
-  #   strategy:
-  #     matrix: ${{fromJson(needs.graph.outputs.queries)}}
-  #   steps:
-  #   - name: Install Queries
-  #     shell: gsql {0}
-  #     run: |
-  #       USE GRAPH MyGraph
-  #       @${{ matrix.filepath }}
-  # job: 
-  #   runs-on: self-hosted
-  #   needs: [schema, graph]
-  #   strategy:
-  #     matrix: ${{fromJson(needs.graph.outputs.jobs)}}
-  #   steps:
-  #   - name: Install Jobs
-  #     shell: gsql {0}
-  #     run: |
-  #       USE GRAPH MyGraph
-  #       @${{ matrix.filepath }}
+  schema: 
+    runs-on: self-hosted
+    needs: [build, graph]
+    strategy:
+      matrix: ${{fromJson(needs.graph.outputs.schemas)}}
+    steps:
+    - name: Install Schema
+      shell: gsql {0}
+      run: |
+        @${{ matrix.filepath }}
+  query: 
+    runs-on: self-hosted
+    needs: [schema, graph]
+    strategy:
+      matrix: ${{fromJson(needs.graph.outputs.queries)}}
+    steps:
+    - name: Install Queries
+      shell: gsql {0}
+      run: |
+        USE GRAPH MyGraph
+        @${{ matrix.filepath }}
+  job: 
+    runs-on: self-hosted
+    needs: [schema, graph]
+    strategy:
+      matrix: ${{fromJson(needs.graph.outputs.jobs)}}
+    steps:
+    - name: Install Jobs
+      shell: gsql {0}
+      run: |
+        USE GRAPH MyGraph
+        @${{ matrix.filepath }}
 
 

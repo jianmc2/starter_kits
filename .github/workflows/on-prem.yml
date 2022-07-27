@@ -110,6 +110,6 @@ jobs:
     #     @${{ schemas.filepath }}
     - name: idek
       run: |
-        testVar = ${{fromJson(needs.build.outputs.queries)}}
+        testVar=${{fromJson(needs.build.outputs.queries)}}
         echo ${{ testVar.filepath }}
 

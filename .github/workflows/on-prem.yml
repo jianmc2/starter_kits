@@ -41,7 +41,8 @@ jobs:
               pathStr+=$'\n'
           fi
         done
-        echo "$pathStr" | \
+        pathStrFinal=${pathStr::-1}
+        echo "$pathStrFinal" | \
         jq --slurp --raw-input 'split("\n")[:-1]' | \
         jq  "{\"filepath\": .[] }" | \
         jq -sc "{ \"include\": . }" > tmp

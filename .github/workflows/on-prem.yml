@@ -97,22 +97,37 @@ jobs:
     #         # for FILE in "$value/jobs"/*; do @$FILE; done
     #         # gsql 'DROP ALL'
     #     done
-  gsql: 
+  schema: 
     runs-on: self-hosted
     needs: build
     strategy:
       matrix: ${{fromJson(needs.build.outputs.schemas)}}
     steps:
-    # - name: test
-    #   shell: gsql {0}
-    #   run: |
-    #     USE GRAPH MyGraph
-    #     @${{ schemas.filepath }}
-    - name: idek
+    - name: Install Schema
+      shell: gsql {0}
       run: |
-        testVar=${{fromJson(needs.build.outputs.queries)}}
-        for value in "${testVar[@]}"
-        do
-          echo "$value" | jq -r '.filepath'
-        done
+        @${{ matrix.filepath }}
+  query: 
+    runs-on: self-hosted
+    needs: build
+    strategy:
+      matrix: ${{fromJson(needs.build.outputs.queries)}}
+    steps:
+    - name: Install Queries
+      shell: gsql {0}
+      run: |
+        USE GRAPH MyGraph
+        @${{ matrix.filepath }}
+  job: 
+    runs-on: self-hosted
+    needs: build
+    strategy:
+      matrix: ${{fromJson(needs.build.outputs.jobs)}}
+    steps:
+    - name: Install Jobs
+      shell: gsql {0}
+      run: |
+        USE GRAPH MyGraph
+        @${{ matrix.filepath }}
+
 

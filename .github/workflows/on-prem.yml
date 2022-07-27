@@ -100,9 +100,9 @@ jobs:
       matrix: ${{fromJson(needs.build.outputs.graphs)}}
     steps:
     - name: Install Schema
-      shell: gsql {0}
+      # shell: gsql {0}
       run: |
-        @${{ matrix.filepath }}
+        echo ${{ matrix.filepath }}
     # - name: Run Graph Installations 
     #   # shell: gsql {0}
     #   run: |

@@ -165,7 +165,7 @@ jobs:
     - name: Install Queries
       shell: gsql {0}
       run: |
-        @USE GRAPH MyGraph
+        USE GRAPH MyGraph
         @${{ matrix.filepath }}
   job: 
     runs-on: self-hosted

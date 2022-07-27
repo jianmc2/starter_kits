@@ -14,7 +14,9 @@ jobs:
 
     runs-on: self-hosted
     outputs: 
-      matrix: ${{ steps.step1.outputs.matrix }}
+      schemas: ${{ steps.step1.outputs.schemas }}
+      queries: ${{ steps.step1.outputs.queries}}
+      jobs: ${{ steps.step1.outputs.jobs }}
     name: Test changed-files
     steps:
     - uses: actions/checkout@v3
@@ -51,19 +53,33 @@ jobs:
         # done
         for value in "${pathArr[@]}"
         do
-          paths=$(find $value/schemas -name '*.gsql')
-          paths+=$'\n'
-          paths+=$(find $value/queries -name '*.gsql')
-          paths+=$'\n'
-          paths+=$(find $value/jobs -name '*.gsql')
-          echo $paths
-          echo "$paths" | \
+          schemas=$(find $value/schemas -name '*.gsql')
+          echo "$schemas" | \
           jq --slurp --raw-input 'split("\n")[:-1]' | \
           jq  "{\"filepath\": .[] }" | \
           jq -sc "{ \"include\": . }" > tmp
           cat ./tmp
           matrixStringifiedObject=$(cat ./tmp)
-          echo "::set-output name=matrix::$matrixStringifiedObject"
+          echo "::set-output name=schemas::$matrixStringifiedObject"
+
+          queries=$(find $value/queries -name '*.gsql')
+          echo "$queries" | \
+          jq --slurp --raw-input 'split("\n")[:-1]' | \
+          jq  "{\"filepath\": .[] }" | \
+          jq -sc "{ \"include\": . }" > tmp
+          cat ./tmp
+          matrixStringifiedObject=$(cat ./tmp)
+          echo "::set-output name=queries::$matrixStringifiedObject"        
+          
+          jobs=$(find $value/jobs -name '*.gsql')
+          echo "$jobs" | \
+          jq --slurp --raw-input 'split("\n")[:-1]' | \
+          jq  "{\"filepath\": .[] }" | \
+          jq -sc "{ \"include\": . }" > tmp
+          cat ./tmp
+          matrixStringifiedObject=$(cat ./tmp)
+          echo "::set-output name=jobs::$matrixStringifiedObject"
+
         done
 
     # - name: Run Graph Installations 
@@ -85,11 +101,15 @@ jobs:
     runs-on: self-hosted
     needs: build
     strategy:
-      matrix: ${{fromJson(needs.build.outputs.matrix)}}
+      schemas: ${{fromJson(needs.build.outputs.schemas)}}
     steps:
-    - name: test
-      shell: gsql {0}
+    # - name: test
+    #   shell: gsql {0}
+    #   run: |
+    #     USE GRAPH MyGraph
+    #     @${{ schemas.filepath }}
+    - name: idek
       run: |
-        USE GRAPH MyGraph
-        @${{ matrix.filepath }}
+        testVar = ${{fromJson(needs.build.outputs.queries)}}
+        echo ${{ testVar.filepath }}
 

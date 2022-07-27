@@ -44,15 +44,21 @@ jobs:
             do 
               cp $FILE tmp.gsql
               ls
-              sed -i '1s/^/"USE GRAPH MyGraph"\n/' tmp.gsql
+
               cat tmp.gsql
             done 
-            # for FILE1 in "$value/queries"/* 
-            # do 
-            #   echo $FILE1
-            #   paths+=("$FILE1")
-            # done
-            # for FILE2 in "$value/jobs"/*; do paths+=("$FILE2"); done
+            for FILE1 in "$value/queries"/* 
+            do 
+              cp $FILE1 tmp.gsql
+              sed -i '1s/^/USE GRAPH MyGraph\n/' tmp.gsql
+              gsql tmp.gsql
+            done
+            for FILE2 in "$value/jobs"/*
+            do 
+              cp $FILE2 tmp.gsql
+              sed -i '1s/^/USE GRAPH MyGraph\n/' tmp.gsql
+              gsql tmp.gsql 
+            done
         done
 
 

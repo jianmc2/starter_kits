@@ -6,4 +6,3 @@ CREATE LOADING JOB LeadJob FOR GRAPH MyGraph {
       LOAD MyDataSource TO EDGE comes_from_the VALUES($0, $26) USING SEPARATOR=",", HEADER="true", EOL="\n";
     }
 
-

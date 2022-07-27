@@ -44,9 +44,9 @@ jobs:
             # for FILE in "$value/schemas"/*; do paths+=("$FILE"); done
             for FILE1 in "$value/queries"/* 
             do 
-              paths+=$FILE1
+              paths+=("${FILE1}")
             done
-            for FILE2 in "$value/jobs"/*; do paths+=("$FILE2"); done
+            # for FILE2 in "$value/jobs"/*; do paths+=("$FILE2"); done
         done
         echo "$paths" | \
         jq --slurp --raw-input 'split("\n")[:-1]' | \

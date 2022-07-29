@@ -8,4 +8,3 @@ CREATE LOADING JOB entityJob FOR GRAPH Entity_Resolution {
       LOAD MyDataSource TO EDGE Has_Address VALUES($0, $10) USING SEPARATOR=",", HEADER="true", EOL="\n";
       LOAD MyDataSource TO EDGE Has_Device VALUES($0, $9) USING SEPARATOR=",", HEADER="true", EOL="\n";
     }
-

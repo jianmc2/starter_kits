@@ -6,4 +6,3 @@ CREATE LOADING JOB AccountJob FOR GRAPH MyGraph {
       LOAD MyDataSource TO EDGE belongs_to_industry VALUES($0, $27) USING SEPARATOR=",", HEADER="true", EOL="\n", QUOTE="double";
       LOAD MyDataSource TO EDGE created_by VALUES($0, $44) USING SEPARATOR=",", HEADER="true", EOL="\n", QUOTE="double";
     }
-

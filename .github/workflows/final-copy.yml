@@ -21,7 +21,9 @@ jobs:
       with:
         fetch-depth: 0
     - name: Start TG
-      run: gadmin start all
+      run: |
+        gadmin start all
+        gadmin start gsql
     - name: Get changed files
       id: changed-files
       uses: tj-actions/changed-files@v24

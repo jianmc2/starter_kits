@@ -44,19 +44,18 @@ jobs:
               gsql $FILE
               graphName=$(cut -d ' ' -f 3 <<< $(head -n 1 $FILE))
             done 
-            echo $graphName
-            # for FILE1 in "$value/queries"/* 
-            # do 
-            #   cp $FILE1 tmp.gsql
-            #   sed -i '1s/^/USE GRAPH $graphName\n/' tmp.gsql
-            #   gsql tmp.gsql
-            # done
-            # for FILE2 in "$value/jobs"/*
-            # do 
-            #   cp $FILE2 tmp.gsql
-            #   sed -i '1s/^/USE GRAPH $graphName\n/' tmp.gsql
-            #   gsql tmp.gsql 
-            # done
+            for FILE1 in "$value/queries"/* 
+            do 
+              cp $FILE1 tmp.gsql
+              sed -i "1s/^/USE GRAPH $graphName\n/" tmp.gsql
+              gsql tmp.gsql
+            done
+            for FILE2 in "$value/jobs"/*
+            do 
+              cp $FILE2 tmp.gsql
+              sed -i "1s/^/USE GRAPH $graphName\n/" tmp.gsql
+              gsql tmp.gsql 
+            done
             gsql 'DROP ALL'
         done
 

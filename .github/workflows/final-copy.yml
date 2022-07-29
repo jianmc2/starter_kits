@@ -58,9 +58,9 @@ jobs:
             done
             gsql 'DROP ALL'
         done
-      - name: Clear Graph
-        if: always()
-        run: gsql 'DROP ALL'
+    - name: Clear Graph
+      if: always()
+      run: gsql 'DROP ALL'
 
 
 

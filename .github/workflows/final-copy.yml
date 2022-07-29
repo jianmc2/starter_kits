@@ -42,7 +42,7 @@ jobs:
             for FILE in "$value/schemas"/*
             do 
               gsql $FILE
-              graphName=$(cut -d ' ' -f 3 <<< $(head -n 1 $FILE))
+              graphName=$(cut -d ' ' -f 3 <<< $(head -n 1 FILE))
             done 
             for FILE1 in "$value/queries"/* 
             do 

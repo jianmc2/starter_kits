@@ -1,0 +1,62 @@
+name: CI/CD Tigergraph
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: self-hosted
+    name: Test changed-files
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Start TG
+      run: |
+        gadmin start all
+        gadmin start gsql
+    - name: Get changed files
+      id: changed-files
+      uses: tj-actions/changed-files@v24
+      with:
+        dir_names: "true"
+    - name: Install Schemas/Queries/Jobs
+      run: |
+        pathArr=()
+        for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+          if ! [[ ${pathArr[*]} =~ "`dirname $file`" ]]; then
+              pathArr+=(`dirname $file`)
+          fi
+        done
+        for value in "${pathArr[@]}"
+        do
+            for FILE in "$value/schemas"/*
+            do 
+              gsql $FILE
+              graphName=$(cut -d ' ' -f 3 <<< $(head -n 1 $FILE))
+            done 
+            for FILE1 in "$value/queries"/* 
+            do 
+              cp $FILE1 tmp.gsql
+              sed -i "1s/^/USE GRAPH $graphName\n/" tmp.gsql
+              gsql tmp.gsql
+            done
+            for FILE2 in "$value/jobs"/*
+            do 
+              cp $FILE2 tmp.gsql
+              sed -i "1s/^/USE GRAPH $graphName\n/" tmp.gsql
+              gsql tmp.gsql 
+            done
+            gsql 'DROP ALL'
+        done
+    - name: Clear Graph
+      if: always()
+      run: gsql 'DROP ALL'
+
+
+

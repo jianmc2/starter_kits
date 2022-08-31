@@ -13,8 +13,6 @@ jobs:
   build:
 
     runs-on: self-hosted
-    outputs: 
-      graphs: ${{ steps.step1.outputs.graphs }}
     name: Test changed-files
     steps:
     - uses: actions/checkout@v3

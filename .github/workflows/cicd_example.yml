@@ -2,7 +2,7 @@ name: CI/CD Tigergraph
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "3.7" ]
   pull_request:
     branches: [ "main" ]
 

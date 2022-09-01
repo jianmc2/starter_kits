@@ -4,4 +4,3 @@ CREATE LOADING JOB produceJob FOR GRAPH demo_graph {
       LOAD MyDataSource TO EDGE produce VALUES($0, $1) USING SEPARATOR=",", HEADER="true", EOL="\n";
     }
 
-

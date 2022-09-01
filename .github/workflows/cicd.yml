@@ -3,8 +3,8 @@ name: Final Workflow
 on:
   # fork:
   #   branches: [ "3.7" ]
-  push:
-    branches: [ "3.7" ]
+#   push:
+#     branches: [ "3.7" ]
   pull_request:
     branches: [ "3.7" ]
 
